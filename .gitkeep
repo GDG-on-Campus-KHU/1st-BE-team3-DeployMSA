@@ -1,0 +1,12 @@
+/api/proto/
+/cmd/client/
+/cmd/server/
+/deploy/client/
+/deploy/server/
+/internal/client/fetcher/
+/internal/client/streamer/
+/internal/server/handler/
+/internal/server/service/
+/pkg/config/
+/pkg/utils/
+/received_videos/

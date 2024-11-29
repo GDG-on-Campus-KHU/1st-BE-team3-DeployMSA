@@ -1,0 +1,45 @@
+version: '3'
+services:
+  internal:
+    build: 
+      context: .
+      dockerfile: deploy/internal/Dockerfile
+    env_file: .env
+    environment:
+      - HOST=internal
+      - GRPC_GO_LOG_VERBOSITY_LEVEL=99  # gRPC 상세 로그
+      - GRPC_GO_LOG_SEVERITY_LEVEL=info  # gRPC 로그 레벨
+    networks:
+      - side-project
+
+  server:
+    build:
+      context: .
+      dockerfile: deploy/server/Dockerfile
+    env_file: .env
+    environment:
+      - HOST=server
+      - GRPC_GO_LOG_VERBOSITY_LEVEL=99
+      - GRPC_GO_LOG_SEVERITY_LEVEL=info
+    depends_on:
+      - internal
+    networks:
+      - side-project
+
+  client:
+    build:
+      context: .
+      dockerfile: deploy/client/Dockerfile
+    env_file: .env
+    environment:
+      - HOST=server
+      - PORT=50051
+      - SERVER_ADDRESS=server:50051  # 명시적으로 server 포트 지정
+    depends_on:
+      - server
+    networks:
+      - side-project
+
+networks:
+  side-project:
+    driver: bridge

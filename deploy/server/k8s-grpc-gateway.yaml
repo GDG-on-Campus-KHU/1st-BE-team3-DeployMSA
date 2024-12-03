@@ -1,0 +1,38 @@
+: v1
+kind: Service
+metadata:
+  name: grpc-gateway-service
+spec:
+  selector:
+    app: grpc-gateway
+  ports:
+    - protocol: "TCP"
+      port: 5052 # service port
+      targetPort: 50052
+  type: ClusterIP # 외부와 통신은 필요없음. 내부에서만 통신하면 됨.
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grpc-gateway
+spec:
+  selector:
+    matchLabels: # template labels must match this spec. 이 deployment가 관리하는 pod의 label.
+      app: grpc-gateway
+  replicas: 3
+  template:
+    metadata:
+      labels: # template labels
+        app: grpc-gateway
+    spec:
+      containers:
+        - name: grpc-gateway          
+          image: # Add your image here
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: grpc-gateway-config
+          ports:
+            - containerPort: 50052

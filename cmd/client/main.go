@@ -16,65 +16,6 @@ import (
 	"google.golang.org/grpc/credentials/insecure"
 )
 
-// 추가할 수 있는 개선사항:
-
-// 버퍼 크기 설정 옵션
-// 재시도 메커니즘
-// 진행률 모니터링
-// 메모리 사용량 최적화
-// 에러 복구 전략
-
-// import (
-// 	"context"
-// 	"log"
-// 	"time"
-
-// 	"google.golang.org/grpc"
-// 	"google.golang.org/grpc/credentials/insecure"
-
-// 	"github.com/ket0825/grpc-streaming/internal/client/fetcher"
-// 	"github.com/ket0825/grpc-streaming/internal/client/streamer"
-// )
-
-// func main() {
-// 	conn, err := grpc.NewClient(
-// 		"localhost:50051", // gRPC 서버 주소
-// 		grpc.WithTransportCredentials(insecure.NewCredentials()),
-// 		grpc.WithBlock(),
-// 	)
-// 	if err != nil {
-// 		log.Fatalf("Failed to connect server: %v", err)
-// 	}
-// 	defer conn.Close()
-
-// 	// 비디오 fetcher 생성
-// 	videoFetcher := fetcher.NewHTTPVideoFetcher()
-
-// 	// gRPC streamer 생성
-// 	grpcStreamer := streamer.NewGRPCStreamer(conn)
-
-// 	// context 생성 (5분 타임아웃)
-// 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Minute)
-// 	defer cancel()
-
-// 	// 비디오 URL
-// 	videoURL := "http://commondatastorage.googleapis.com/gtv-videos-bucket"
-
-// 	// 비디오 fetch
-// 	videoResp, err := videoFetcher.Fetch(videoURL)
-// 	if err != nil {
-// 		log.Fatalf("Failed to fetch video: %v", err)
-// 	}
-// 	defer videoResp.Body.Close()
-
-// 	// 서버로 스트리밍
-// 	if err := grpcStreamer.StreamToServer(ctx, videoResp); err != nil {
-// 		log.Fatalf("Failed to stream to server: %v", err)
-// 	}
-
-// 	log.Println("Successfully streamed video to server")
-// }
-
 func continuousStreamVideo(ctx context.Context, conn *grpc.ClientConn, videoURL string) error {
 	// gRPC 클라이언트 설정
 	grpcClient := pb.NewVideoStreamingServiceClient(conn)

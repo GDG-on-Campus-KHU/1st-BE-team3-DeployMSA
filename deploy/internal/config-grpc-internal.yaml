@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grpc-internal-config
+data:
+  INTERNAL_PORT: 50053
+  INTERNAL_HOST: INTERNAL_DNS_NAME # server-service
+  OUT_DIR: "../../encoded_videos"
+  TEMP_DIR: "../../temp"

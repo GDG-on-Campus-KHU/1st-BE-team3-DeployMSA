@@ -1,10 +1,11 @@
+# config-grpc-server.yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: server-config
+  name: grpc-server-config
 data:
   # server config
-  SERVER_HOST: SERVER_DNS_NAME # server-service
-  SERVER_PORT: 50052
-  INTERNAL_PORT: 5053 # internal-service port
-  INTERNAL_HOST: INTERNAL_DNS_NAME # internal-service
+  SERVER_HOST: "0.0.0.0" # server-service
+  SERVER_PORT: "50052"
+  INTERNAL_PORT: "5053" # internal-service port
+  INTERNAL_HOST: "grpc-internal-service"  # internal-service

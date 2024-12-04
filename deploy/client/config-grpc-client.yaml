@@ -1,3 +1,5 @@
+# config-grpc-client.yaml
+
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -5,5 +7,5 @@ metadata:
 data:
   # client config
   VIDEO_URL: http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4
-  SERVER_HOST: SERVER_DNS_NAME # server-service  
-  SERVER_PORT: 5052 # server-service port
+  SERVER_HOST: grpc-server-service # server-service  
+  SERVER_PORT: "5052" # server-service port

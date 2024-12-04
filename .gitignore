@@ -21,8 +21,14 @@
 go.work
 go.work.sum
 
-# env file
+# env file and tfvars file
 .env
+**.tfvars
+deploy/terraform/.terraform/
+deploy/terraform/terraform.tfstate
+deploy/terraform/terraform.tfstate.backup
+
 
 # mp4
 **.mp4
+

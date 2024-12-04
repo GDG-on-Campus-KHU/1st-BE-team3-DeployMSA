@@ -11,7 +11,6 @@ import (
 	"time"
 
 	pb "github.com/ket0825/grpc-streaming/api/proto"
-	"github.com/lpernett/godotenv"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/keepalive"
 )
@@ -101,10 +100,10 @@ func (s *VideoStreamingServer) StreamVideo(stream pb.VideoStreamingService_Strea
 }
 
 func main() {
-	err := godotenv.Load("../../.env")
-	if err != nil {
-		log.Fatal("Error loading .env file")
-	}
+	// err := godotenv.Load("../../.env")
+	// if err != nil {
+	// 	log.Fatal("Error loading .env file")
+	// }
 
 	// 환경변수에서 Internal 서버 주소 가져오기
 	internalHost := os.Getenv("INTERNAL_HOST")

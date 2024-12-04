@@ -10,7 +10,6 @@ import (
 	"time"
 
 	pb "github.com/ket0825/grpc-streaming/api/proto"
-	"github.com/lpernett/godotenv"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
@@ -104,10 +103,10 @@ func continuousStreamVideo(ctx context.Context, conn *grpc.ClientConn, videoURL 
 }
 
 func main() {
-	err := godotenv.Load("../../.env")
-	if err != nil {
-		log.Fatal("Error loading .env file")
-	}
+	// err := godotenv.Load("../../.env")
+	// if err != nil {
+	// 	log.Fatal("Error loading .env file")
+	// }
 
 	videoURL := os.Getenv("VIDEO_URL")
 	serverHost := os.Getenv("SERVER_HOST")

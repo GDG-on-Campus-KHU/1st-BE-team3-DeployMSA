@@ -12,7 +12,6 @@ import (
 	"time"
 
 	pb "github.com/ket0825/grpc-streaming/api/proto"
-	"github.com/lpernett/godotenv"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/keepalive"
 )
@@ -54,7 +53,7 @@ func (s *server) StreamVideo(stream pb.VideoStreamingService_StreamVideoServer) 
 	log.Printf("Starting new processing session: %s", sessionID)
 
 	// 임시 디렉토리 생성
-	tempDir := "/Users/sangyeong_park/CE/Clubs/GDG_on_KHU/Go_Server/tempVideo"
+	tempDir := os.Getenv("TEMP_DIR")
 	if err := os.MkdirAll(tempDir, 0755); err != nil {
 		return fmt.Errorf("failed to create temp directory: %v", err)
 	}
@@ -117,7 +116,7 @@ func (s *server) StreamVideo(stream pb.VideoStreamingService_StreamVideoServer) 
 	file.Close()
 
 	// 화질별 변환 시작
-	baseDir := "/Users/sangyeong_park/CE/Clubs/GDG_on_KHU/Go_Server/savedVideo"
+	baseDir := os.Getenv("OUTPUT_DIR")
 	successCount := 0
 	var conversionErrors []string
 
@@ -184,9 +183,9 @@ func convertVideo(inputPath, outputPath string, quality VideoQuality) error {
 }
 
 func main() {
-	if err := godotenv.Load("../../.env"); err != nil {
-		log.Fatal("Error loading .env file")
-	}
+	// if err := godotenv.Load("../../.env"); err != nil {
+	// 	log.Fatal("Error loading .env file")
+	// }
 
 	// FFmpeg 설치 확인
 	_, err := exec.LookPath("ffmpeg")

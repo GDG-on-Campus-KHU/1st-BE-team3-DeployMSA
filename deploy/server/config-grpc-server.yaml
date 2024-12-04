@@ -4,5 +4,7 @@ metadata:
   name: server-config
 data:
   # server config
-  INTERNAL_PORT: 50053  
+  SERVER_HOST: SERVER_DNS_NAME # server-service
+  SERVER_PORT: 50052
+  INTERNAL_PORT: 5053 # internal-service port
   INTERNAL_HOST: INTERNAL_DNS_NAME # internal-service

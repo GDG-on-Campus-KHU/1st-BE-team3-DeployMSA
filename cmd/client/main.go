@@ -169,14 +169,21 @@ func main() {
 	}
 
 	videoURL := os.Getenv("VIDEO_URL")
-	host := os.Getenv("HOST")
-	port := os.Getenv("PORT")
+	serverHost := os.Getenv("SERVER_HOST")
+	serverPort := os.Getenv("SERVER_PORT")
 
-	grpcAddr := fmt.Sprintf("%s:%s", host, port)
+	grpcAddr := fmt.Sprintf("%s:%s", serverHost, serverPort)
 
-	conn, err := grpc.NewClient(
+	maxMsgSize := 10 * 1024 * 1024 // 10MB (서버와 동일하게)
+
+	conn, err := grpc.Dial(
 		grpcAddr,
 		grpc.WithTransportCredentials(insecure.NewCredentials()),
+		grpc.WithBlock(),
+		grpc.WithDefaultCallOptions(
+			grpc.MaxCallSendMsgSize(maxMsgSize),
+			grpc.MaxCallRecvMsgSize(maxMsgSize),
+		),
 	)
 	if err != nil {
 		log.Fatalf("Failed to connect server: %v", err)

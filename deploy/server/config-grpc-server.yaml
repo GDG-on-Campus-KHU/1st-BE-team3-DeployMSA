@@ -1,8 +1,8 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: gateway-config
+  name: server-config
 data:
-  # client config
+  # server config
   INTERNAL_PORT: 50053  
   INTERNAL_HOST: INTERNAL_DNS_NAME # internal-service

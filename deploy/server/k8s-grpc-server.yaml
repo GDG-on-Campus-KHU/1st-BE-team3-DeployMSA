@@ -1,10 +1,10 @@
 : v1
 kind: Service
 metadata:
-  name: grpc-gateway-service
+  name: grpc-server-service
 spec:
   selector:
-    app: grpc-gateway
+    app: grpc-server
   ports:
     - protocol: "TCP"
       port: 5052 # service port
@@ -16,23 +16,23 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: grpc-gateway
+  name: grpc-server
 spec:
   selector:
     matchLabels: # template labels must match this spec. 이 deployment가 관리하는 pod의 label.
-      app: grpc-gateway
+      app: grpc-server
   replicas: 3
   template:
     metadata:
       labels: # template labels
-        app: grpc-gateway
+        app: grpc-server
     spec:
       containers:
-        - name: grpc-gateway          
+        - name: grpc-server          
           image: # Add your image here
           imagePullPolicy: IfNotPresent
           envFrom:
             - configMapRef:
-                name: grpc-gateway-config
+                name: grpc-server-config
           ports:
             - containerPort: 50052

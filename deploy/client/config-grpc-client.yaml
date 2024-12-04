@@ -4,6 +4,6 @@ metadata:
   name: grpc-client-config
 data:
   # client config
-  GATEWAY_PORT: 50051
+  SERVER_PORT: 50051
   VIDEO_URL: http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4
-  GATEWAY_HOST: GATEWAY_DNS_NAME # gateway-service
+  SERVER_HOST: SERVER_DNS_NAME # server-service

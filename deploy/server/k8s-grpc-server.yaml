@@ -1,4 +1,5 @@
-: v1
+# k8s-grpc-server.yaml
+apiVersion: v1
 kind: Service
 metadata:
   name: grpc-server-service
@@ -29,7 +30,7 @@ spec:
     spec:
       containers:
         - name: grpc-server          
-          image: # Add your image here
+          image: grpc-server # Add your image here
           imagePullPolicy: IfNotPresent
           envFrom:
             - configMapRef:

@@ -29,8 +29,8 @@ type StreamInfo struct {
 
 func NewVideoStreamingServer(internalClient pb.VideoStreamingServiceClient) *VideoStreamingServer {
 	return &VideoStreamingServer{
-		activeStreams:  make(map[string]*StreamInfo),
-		internalClient: internalClient,
+		activeStreams:  make(map[string]*StreamInfo), // proto의 StreamVideo 참고. byte 형태로 들어온 stream을 VideoChunk로 변환.
+		internalClient: internalClient, // internal 서버와의 연결
 	}
 }
 

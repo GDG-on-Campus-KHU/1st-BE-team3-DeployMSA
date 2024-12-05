@@ -98,7 +98,7 @@ resource "kubernetes_service" "grpc_client_service" {
 
 resource "kubernetes_service" "grpc_server_service" {
   metadata {
-    name = kubernetes_config_map.grpc_client_config.data.SERVER_HOST
+    name = kubernetes_config_map.grpc_client_config.data.SERVER_HOST # grpc-client가 바라보는 grpc-server의 서비스 이름
   }
   depends_on = [ kubernetes_config_map.grpc_server_config ]
 
@@ -110,7 +110,7 @@ resource "kubernetes_service" "grpc_server_service" {
     port {
       protocol    = "TCP"
       port        = kubernetes_config_map.grpc_client_config.data.SERVER_PORT
-      target_port = 50052
+      target_port = kubernetes_config_map.grpc_server_config.data.SERVER_PORT
     }
 
     type = "ClusterIP"
@@ -119,7 +119,7 @@ resource "kubernetes_service" "grpc_server_service" {
 
 resource "kubernetes_service" "grpc_internal_service" {
   metadata {
-    name = kubernetes_config_map.grpc_server_config.data.INTERNAL_HOST
+    name = kubernetes_config_map.grpc_server_config.data.INTERNAL_HOST # grpc-server가 바라보는 grpc-internal의 서비스 이름
   }
   
   depends_on = [ kubernetes_config_map.grpc_internal_config ]
@@ -131,8 +131,8 @@ resource "kubernetes_service" "grpc_internal_service" {
 
     port {
       protocol    = "TCP"
-      port        = 5053
-      target_port = kubernetes_config_map.grpc_server_config.data.INTERNAL_PORT
+      port        = kubernetes_config_map.grpc_server_config.data.INTERNAL_PORT
+      target_port = kubernetes_config_map.grpc_internal_config.data.INTERNAL_PORT
     }
 
     type = "ClusterIP"
@@ -218,7 +218,7 @@ resource "kubernetes_deployment" "grpc_server_deployment" {
           }
 
           port {
-            container_port = 50052
+            container_port = kubernetes_config_map.grpc_server_config.data.SERVER_PORT
           }
         }
       }
@@ -259,9 +259,21 @@ resource "kubernetes_deployment" "grpc_internal_deployment" {
               name = kubernetes_config_map.grpc_internal_config.metadata[0].name
             }
           }
+          resources {
+            limits = {
+              ephemeral-storage = "10Gi"  # GKE autopilot에서 최대 임시 저장소 크기. 더 큰 크기를 원한다면 pv, pvc 사용
+              cpu    = "0.5"
+              memory = "512Mi"              
+            }
+            requests = {
+              ephemeral-storage = "10Gi"
+              cpu    = "0.5"
+              memory = "512Mi"
+            }
+          }
 
           port {
-            container_port = 50053
+            container_port = kubernetes_config_map.grpc_internal_config.data.INTERNAL_PORT
           }
         }
       }

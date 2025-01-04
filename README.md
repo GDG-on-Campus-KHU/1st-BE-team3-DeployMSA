@@ -1,8 +1,7 @@
 # K8s를 활용한 gRPC 기반 스트리밍 서버 시스템
-- 본 프로젝트는 gRPC를 활용하여 영상 데이터를 streaming하여 영상을 여러 화질로 인코딩하는 동작을 구현
-- 추가적으로, googcloud의 GKE와 terraform을 활용하여 k8s 환경에 프로젝트를 구축함
-- source code는 golang으로 작성
-- 관리 및 배포를 위해 Docker, GKE(Google Kubernetes Engine), Terraform 등 활용
+- 본 프로젝트는 `gRPC`를 활용하여 영상 데이터를 streaming하여 영상을 여러 화질로 인코딩하는 동작을 구현
+- source code는 `golang`으로 작성
+- 관리 및 배포를 위해 `Docker`, `GKE(Google Kubernetes Engine)`, `Terraform` 등 활용
 
 ## **1. Service Architecture**
 ### **1) Service Architecture**

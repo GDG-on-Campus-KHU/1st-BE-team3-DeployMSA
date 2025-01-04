@@ -5,7 +5,12 @@
 - 관리 및 배포를 위해 Docker, GKE(Google Kubernetes Engine), Terraform 등 활용
 
 ## **1. Service Architecture**
+### **1) Service Architecture**
 <img width="1000" alt="image" src="https://github.com/user-attachments/assets/7f4aa592-8f55-421a-b04f-f5424df2dfc8">
+
+### **2) Service & Deployment 고려한 k8s architecture**
+<img width="1000" alt="image" src="https://github.com/user-attachments/assets/c35e8a8d-417e-4bb0-80c7-ff3f01046079">
+
 
 ## **2. Main Components**
 
